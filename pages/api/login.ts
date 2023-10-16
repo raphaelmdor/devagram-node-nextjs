@@ -11,13 +11,12 @@ const endpointLogin = async (
     if(req.method === 'POST'){
         const {login, senha} = req.body;
         
-        const usuarioEncontrado = await UsuarioModel.find({email: login, senha: md5(senha)});
-        if(login === 'admin@admin.com' &&
-            senha === 'Admin@123'){
-               return res.status(200).json({msg: 'Usuário autenticado com sucesso.'});
-            }
-            return res.status(400).json({erro: 'Usuário ou Senha inválido(a).'});
-
+        const usuariosEncontrados = await UsuarioModel.find({email: login, senha: md5(senha)});
+        if(usuariosEncontrados && usuariosEncontrados.length >0){
+            const usuarioEncontrado = usuariosEncontrados[0];  
+            return res.status(200).json({msg: `Usuário ${usuarioEncontrado.nome} autenticado com sucesso.`});
+        }
+        return res.status(400).json({erro: 'Usuário e/ou Senha inválidos.'});
     }
     return res.status(405).json({erro: 'Método informado não é válido.'});
 }
