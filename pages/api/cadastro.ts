@@ -34,6 +34,8 @@ const handler = nc()
 
             const image = await uploadImagemCosmic(req);
             
+            console.log(image)
+            
             const usuarioASerSalvo = {
                 nome: usuario.nome,
                 email: usuario.email,
@@ -43,6 +45,8 @@ const handler = nc()
 
             await UsuarioModel.create(usuarioASerSalvo);
             return res.status(200).json({msg: 'Cadastro realizado com sucesso'});
+
+                       
 });
 
 export const config = {
@@ -50,5 +54,6 @@ export const config = {
         bodyParser: false
     }
 }
+
 
 export default conectaMongoDB(handler);
