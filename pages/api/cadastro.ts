@@ -13,7 +13,7 @@ const handler = nc()
        
             const usuario = req.body as CadastroRequisicao;
     
-            if(!usuario.nome || usuario.nome.length <2){
+            if(!usuario.nome || usuario.nome.length <2) {
                 return res.status(400).json({erro: 'Nome inválido.'});
             }
     
