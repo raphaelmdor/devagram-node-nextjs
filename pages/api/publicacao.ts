@@ -2,7 +2,7 @@ import type { NextApiResponse } from "next";
 import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
 import nc from 'next-connect';
 import { upload, uploadImagemCosmic } from "../../services/uploadImagemCosmic";
-import {conectaMongoDB} from '../../middlewares/conectaMongoDB';
+import {conectarMongoDB} from '../../middlewares/conectarMongoDB';
 import { validarTokenJWT } from "../../middlewares/validarTokenJWT";
 import { PublicacaoModel } from "../../models/PublicacaoModel";
 import { UsuarioModel } from "../../models/UsuarioModel";
@@ -53,4 +53,4 @@ export const config = {
     }
 }
 
-export default validarTokenJWT(conectaMongoDB(handler));
+export default validarTokenJWT(conectarMongoDB(handler));
