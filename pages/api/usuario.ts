@@ -20,8 +20,9 @@ const handler = nc()
                 return res.status(400).json({erro:'Este usuário não existe'});
             }
 
+            //pega os dados a serem alterados
             const {nome} = req.body;
-            if(!nome && nome.lenght > 2){
+            if(nome && nome.lenght > 2){
                 usuario.nome = nome;
             }
 
