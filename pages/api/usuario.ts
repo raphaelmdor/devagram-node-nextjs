@@ -29,39 +29,49 @@ const handler = nc()
             if(file && file.orinalname){
                 const image = await uploadImagemCosmic(req);
                 if(image && image.media && image.media.url){
-                    usuario.avatar = file;
+                    usuario.avatar = image.media.url;
                 }
-               
             }
+
+            //para alterar os dados no banco de dados
+            await UsuarioModel.findByIdAndUpdate({_id: usuario._id}, usuario);
+            return res.status(200).json({msg: 'Usuário alterado com sucesso.'});
 
         }catch(e){
             console.log(e);
+            return res.status(400).json({erro: 'Não foi possível atualizar o usuário.'});
         }
-        return res.status(400).json({erro: 'Não foi possível atualizar o usuário.'})
+        
     })
 
-const usuarioEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any>) =>{
+    .get(async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any>) =>{
     
-    try{
-
-        // para buscar os dados do usuário no banco de dados
-        const {userId} = req?.query;
-
-        //buscar todos os dados do usuário
-        const usuario = await UsuarioModel.findById(userId);
+        try{
+    
+            // para buscar os dados do usuário no banco de dados
+            const {userId} = req?.query;
+    
+            //buscar todos os dados do usuário
+            const usuario = await UsuarioModel.findById(userId);
+            
+            //para não retornar a senha do usuário
+            usuario.senha = null;
         
-        //para não retornar a senha do usuário
-        usuario.senha = null;
+            return res.status(200).json(usuario);
     
-        return res.status(200).json(usuario);
+        }catch(e){
+            console.log(e);
+            return res.status(400).json({erro: 'Não foi possível obter dados do usuário.' });
+        }
+    });
 
-    }catch(e){
-        console.log(e);
-        return res.status(400).json({erro: 'Não foi possível obter dados do usuário.' });
+export const config = {
+    api: {
+        bodyParser : false
     }
-}
-
-export default validarTokenJWT(conectarMongoDB(usuarioEndpoint));
+} 
+ 
+export default validarTokenJWT(conectarMongoDB(handler));
 
 
 //multer é para receber os dados e chegar até o servidor
