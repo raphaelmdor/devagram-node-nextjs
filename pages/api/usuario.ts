@@ -22,7 +22,7 @@ const handler = nc()
 
             //pega os dados a serem alterados
             const {nome} = req.body;
-            if(nome && nome.lenght > 2){
+            if(nome && nome.length > 2){
                 usuario.nome = nome;
             }
 
