@@ -17,7 +17,8 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
             }
 
             const usuariosEncontrados = await UsuarioModel.find({
-                nome: filtro
+                $or: [{nome: {$regex: filtro, $options: 'i'}}, //{email: {$regex: filtro, $options: 'i'}}
+                ] 
             });
             return res.status(200).json(usuariosEncontrados);
 
@@ -29,3 +30,6 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
     }
 }
 export default validarTokenJWT(conectarMongoDB(pesquisaEndpoint));
+
+//O $regex é utilizado para não precisar colocar o nome 100% completo para efetuar a busca
+//O $options 'i' é usado nesse caso para ignore case, no caso, serve para autorizar fazer a busca tudo em caixa baixa
