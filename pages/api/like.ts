@@ -51,4 +51,5 @@ const likeEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPa
 export default validarTokenJWT(conectarMongoDB(likeEndpoint));
 
 //método PUT é utilizado para fazer atualização de dados.
-//splice é um método do array onde se remove uma peça do meio.
+//splice é um método do array onde se remove um item de um determinado index da lista.
+//push é um método utilizado para adicionar um item ao final da lista.
