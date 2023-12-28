@@ -8,8 +8,15 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
     try{
         //para efetuar a busca do usuário
         if(req.method === 'GET'){
-
-            const {filtro} = req.query;
+            if(req?.query?.id){
+                const usuarioEncontrado = await UsuarioModel.findById(req?.query?.id);
+                if(!usuarioEncontrado){
+                    return res.status(400).json({erro:'Usuário não encontrado.'});
+                }
+                usuarioEncontrado.senha = null
+                return res.status(200).json(usuarioEncontrado);
+            }else{
+                  const {filtro} = req.query;
             // É bom utilizar o filtro como parâmetro para efetuar as duas buscar por um parâmetro ao invés de ter
             // vários parâmetros
             if(!filtro || filtro.length < 2){
@@ -19,9 +26,12 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
             const usuariosEncontrados = await UsuarioModel.find({
                 $or: [{nome: {$regex: filtro, $options: 'i'}}, //{email: {$regex: filtro, $options: 'i'}}
                 ] 
-            });
+            })
+            // Percorre o array e remove a senha de cada usuário
+            usuariosEncontrados.forEach(usuario => {
+            usuario.senha = null}); 
             return res.status(200).json(usuariosEncontrados);
-
+            }
         }
         return res.status(405).json({erro: 'Método informado não é válido.'});
     }catch(e){
