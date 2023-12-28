@@ -38,7 +38,7 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
         console.log(e);
         return res.status(500).json({erro: 'Não foi possível buscar o usuário:' + e});
     }
-}
+};
 export default validarTokenJWT(conectarMongoDB(pesquisaEndpoint));
 
 //O $regex é utilizado para não precisar colocar o nome 100% completo para efetuar a busca
