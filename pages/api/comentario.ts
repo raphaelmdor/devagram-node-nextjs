@@ -25,7 +25,7 @@ const comentarioEndpoint = async (req: NextApiRequest, res: NextApiResponse<Resp
                 return res.status(400).json({ erro: 'Publicação não encontrada.'}); 
             }
 
-            //conmentário que vem do body
+            //comentário que vem do body
             if(!req.body || !req.body.comentario || req.body.comentario.length < 2){
                 return res.status(400).json({ erro: 'Comentário não é válido'});
             }
@@ -35,6 +35,7 @@ const comentarioEndpoint = async (req: NextApiRequest, res: NextApiResponse<Resp
                 nome: usuarioLogado.nome,
                 comentario: req.body.comentario
             }
+           
 
             publicacao.comentarios.push(comentario);
             await PublicacaoModel.findByIdAndUpdate({_id: publicacao._id}, publicacao);
