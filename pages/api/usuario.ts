@@ -5,7 +5,7 @@ import type { RespostaPadraoMsg } from '@/types/RespostaPadraoMsg';
 import { UsuarioModel } from '@/models/UsuarioModel';
 import nc from 'next-connect';
 import { upload, uploadImagemCosmic } from '@/services/uploadImagemCosmic';
-import { politicaCORS } from '@/middlewares/politicaCors';
+import {politicaCORS} from '../../middlewares/politicaCORS';
 
 const handler = nc()
     .use(upload.single('file'))

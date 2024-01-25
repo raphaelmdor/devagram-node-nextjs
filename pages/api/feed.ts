@@ -5,7 +5,7 @@ import type { RespostaPadraoMsg } from '@/types/RespostaPadraoMsg';
 import { UsuarioModel } from '@/models/UsuarioModel';
 import { PublicacaoModel } from '@/models/PublicacaoModel';
 import { SeguidorModel } from '@/models/SeguidorModel';
-import { politicaCORS } from '@/middlewares/politicaCors';
+import {politicaCORS} from '../../middlewares/politicaCORS';
 
 const feedEndpoint = async (req: NextApiRequest , res: NextApiResponse<RespostaPadraoMsg | any>) => {
     try{

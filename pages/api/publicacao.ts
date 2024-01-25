@@ -6,7 +6,7 @@ import {conectarMongoDB} from '../../middlewares/conectarMongoDB';
 import { validarTokenJWT } from "../../middlewares/validarTokenJWT";
 import { PublicacaoModel } from "../../models/PublicacaoModel";
 import { UsuarioModel } from "../../models/UsuarioModel";
-import { politicaCORS } from "@/middlewares/politicaCors";
+import {politicaCORS} from '../../middlewares/politicaCORS';
 
 
 const handler = nc()

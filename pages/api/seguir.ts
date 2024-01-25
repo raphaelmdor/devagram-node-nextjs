@@ -5,7 +5,7 @@ import type { RespostaPadraoMsg } from '@/types/RespostaPadraoMsg';
 import { UsuarioModel } from '@/models/UsuarioModel';
 import { SeguidorModel } from '@/models/SeguidorModel';
 import usuario from './usuario';
-import { politicaCORS } from '@/middlewares/politicaCors';
+import {politicaCORS} from '../../middlewares/politicaCORS';
 
 const endpointSeguir = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any>) =>{
     try{
