@@ -5,6 +5,7 @@ import type { RespostaPadraoMsg } from '@/types/RespostaPadraoMsg';
 import { UsuarioModel } from '@/models/UsuarioModel';
 import nc from 'next-connect';
 import { upload, uploadImagemCosmic } from '@/services/uploadImagemCosmic';
+import { politicaCORS } from '@/middlewares/politicaCors';
 
 const handler = nc()
     .use(upload.single('file'))
@@ -72,7 +73,7 @@ export const config = {
     }
 } 
  
-export default validarTokenJWT(conectarMongoDB(handler));
+export default politicaCORS(validarTokenJWT(conectarMongoDB(handler)));
 
 
 //multer é para receber os dados e chegar até o servidor

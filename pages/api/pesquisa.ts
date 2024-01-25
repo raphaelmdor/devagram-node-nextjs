@@ -3,6 +3,7 @@ import type { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
 import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { UsuarioModel } from "@/models/UsuarioModel";
+import { politicaCORS } from "@/middlewares/politicaCors";
 
 const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>) => {
     try{
@@ -39,7 +40,7 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
         return res.status(500).json({erro: 'Não foi possível buscar o usuário:' + e});
     }
 };
-export default validarTokenJWT(conectarMongoDB(pesquisaEndpoint));
+export default politicaCORS(validarTokenJWT(conectarMongoDB(pesquisaEndpoint)));
 
 //O $regex é utilizado para não precisar colocar o nome 100% completo para efetuar a busca
 //O $options 'i' é usado nesse caso para ignore case, no caso, serve para autorizar fazer a busca tudo em caixa baixa

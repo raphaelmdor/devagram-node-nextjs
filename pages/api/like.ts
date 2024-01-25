@@ -4,6 +4,7 @@ import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { UsuarioModel } from "@/models/UsuarioModel";
 import { PublicacaoModel } from "@/models/PublicacaoModel";
+import { politicaCORS } from "@/middlewares/politicaCors";
 
 const likeEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg> | any) => {
     try{
@@ -48,7 +49,7 @@ const likeEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPa
     }
 };
 
-export default validarTokenJWT(conectarMongoDB(likeEndpoint));
+export default politicaCORS(validarTokenJWT(conectarMongoDB(likeEndpoint)));
 
 //método PUT é utilizado para fazer atualização de dados.
 //splice é um método do array onde se remove um item de um determinado index da lista.
